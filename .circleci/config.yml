@@ -16,9 +16,34 @@ jobs:
       - deploy:
           name: Deploying ...
           command: echo deploying stuff
+          
+build2:
+    docker:
+      - image: circleci/node:10
+
+    working_directory: ~/repo
+
+    steps:
+      - checkout
+      
+      - run:
+          name: Build ...
+          command: sleep 30 && echo ok
+
+      - deploy:
+          name: Deploying ...
+          command: echo deploying stuff
 
 workflows:
   version: 2
   pipeline:
     jobs:
       - build
+      - approve-long:
+          type: approval
+          requires:
+            - build
+      - build2:
+          requires:
+            - build
+            - approve-long
