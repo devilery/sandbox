@@ -17,7 +17,7 @@ jobs:
           name: Deploying ...
           command: echo deploying stuff
           
-build2:
+  build2:
     docker:
       - image: circleci/node:10
 
