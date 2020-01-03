@@ -36,7 +36,7 @@ jobs:
 
 workflows:
   version: 2
-  pipeline:
+  ourpipeline:
     jobs:
       - build
       - approve-long:
