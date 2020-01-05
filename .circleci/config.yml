@@ -43,6 +43,10 @@ workflows:
           type: approval
           requires:
             - build
+      - approve-chained:
+          type: approval
+          requires:
+            - approve-long
       - build2:
           requires:
             - build
