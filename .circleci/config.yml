@@ -11,7 +11,7 @@ jobs:
       
       - run:
           name: Build ...
-          command: sleep 5 && echo ok
+          command: sleep 15 && echo ok
 
       - deploy:
           name: Deploying ...
