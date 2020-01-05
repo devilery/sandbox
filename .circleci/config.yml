@@ -11,7 +11,7 @@ jobs:
       
       - run:
           name: Build ...
-          command: sleep 5 && echo ok
+          command: sleep 15 && echo ok
 
       - deploy:
           name: Deploying ...
@@ -34,16 +34,34 @@ jobs:
           name: Deploying ...
           command: echo deploying stuff
 
+  fakedeploy:
+    docker:
+      - image: circleci/node:10
+
+    working_directory: ~/repo
+
+    steps:
+      - checkout
+      - run: echo uploading assets into cloud gg  .... && sleep 5
+
 workflows:
   version: 2
-  ourpipeline:
+  ourpipeline2:
     jobs:
       - build
       - approve-long:
           type: approval
           requires:
             - build
+      - approve-chained:
+          type: approval
+          requires:
+            - approve-long
       - build2:
           requires:
             - build
             - approve-long
+      - fakedeploy:
+          requires:
+            - build
+            - build2
