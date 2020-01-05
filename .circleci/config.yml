@@ -34,6 +34,16 @@ jobs:
           name: Deploying ...
           command: echo deploying stuff
 
+  fakedeploy:
+    docker:
+      - image: circleci/node:10
+
+    working_directory: ~/repo
+
+    steps:
+      - checkout
+      - run: echo uploading assets into cloud .... && sleep 5
+
 workflows:
   version: 2
   ourpipeline2:
@@ -51,3 +61,7 @@ workflows:
           requires:
             - build
             - approve-long
+      - fakedeploy:
+          requires:
+            - build
+            - build2
